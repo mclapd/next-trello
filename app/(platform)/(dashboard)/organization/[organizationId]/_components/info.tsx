@@ -5,6 +5,10 @@ import { useOrganization } from "@clerk/nextjs";
 import { CreditCard } from "lucide-react";
 import Image from "next/image";
 
+interface InfoProps {
+  isPro: boolean;
+}
+
 export const Info = ({ isPro }: InfoProps) => {
   const { organization, isLoaded } = useOrganization();
 
