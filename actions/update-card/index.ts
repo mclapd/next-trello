@@ -4,10 +4,10 @@ import { auth } from "@clerk/nextjs";
 import { InputType, ReturnType } from "./types";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
-import { CreateCard } from "./schema";
+import { UpdateCard } from "./schema";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { createAuditLog } from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -18,49 +18,34 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { title, boardId, listId } = data;
+  const { id, boardId, ...values } = data;
 
   let card;
 
   try {
-    const list = await db.list.findUnique({
+    card = await db.card.update({
       where: {
-        id: listId,
-        board: {
-          orgId,
+        id,
+        list: {
+          board: {
+            orgId,
+          },
         },
       },
-    });
-
-    if (!list) {
-      return { error: "List not found." };
-    }
-
-    const lastCard = await db.card.findFirst({
-      where: { listId },
-      orderBy: { order: "desc" },
-      select: { order: true },
-    });
-
-    const newOrder = lastCard ? lastCard.order + 1 : 1;
-
-    card = await db.card.create({
       data: {
-        title,
-        listId,
-        order: newOrder,
+        ...values,
       },
     });
 
     await createAuditLog({
-      entityId: card.id,
       entityTitle: card.title,
+      entityId: card.id,
       entityType: ENTITY_TYPE.CARD,
-      action: ACTION.CREATE,
+      action: ACTION.UPDATE,
     });
   } catch (error) {
     return {
-      error: "Failed to create.",
+      error: "Failed to update.",
     };
   }
 
@@ -68,4 +53,4 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   return { data: card };
 };
 
-export const createCard = createSafeAction(CreateCard, handler);
+export const updateCard = createSafeAction(UpdateCard, handler);

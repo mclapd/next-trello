@@ -109,11 +109,11 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
         setOrderedData(newOrderedData);
         executeUpdateCardOrder({ boardId: boardId, items: reorderedCards });
       } else {
-        const [moved] = sourceList.cards.splice(source.index, 1);
+        const [movedCard] = sourceList.cards.splice(source.index, 1);
 
-        moved.listId = destList.id;
+        movedCard.listId = destination.droppableId;
 
-        destList.cards.splice(destination.index, 0, moved);
+        destList.cards.splice(destination.index, 0, movedCard);
 
         sourceList.cards.forEach((card, index) => {
           card.order = index;
