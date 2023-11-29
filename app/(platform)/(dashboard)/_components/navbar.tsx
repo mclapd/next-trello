@@ -1,5 +1,5 @@
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
-import Logo from "@/components/logo";
+import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { MobileSidebar } from "./mobile-sidebar";

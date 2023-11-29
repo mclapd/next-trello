@@ -1,8 +1,6 @@
-"use client";
-
 import { useState, useCallback } from "react";
 
-import { ActionState, FiedlErrors } from "@/lib/create-safe-action";
+import { ActionState, FieldErrors } from "@/lib/create-safe-action";
 
 type Action<TInput, TOutput> = (
   data: TInput
@@ -11,7 +9,7 @@ type Action<TInput, TOutput> = (
 interface UseActionOptions<TOutput> {
   onSuccess?: (data: TOutput) => void;
   onError?: (error: string) => void;
-  onCompleted?: () => void;
+  onComplete?: () => void;
 }
 
 export const useAction = <TInput, TOutput>(
@@ -19,9 +17,8 @@ export const useAction = <TInput, TOutput>(
   options: UseActionOptions<TOutput> = {}
 ) => {
   const [fieldErrors, setFieldErrors] = useState<
-    FiedlErrors<TInput> | undefined
+    FieldErrors<TInput> | undefined
   >(undefined);
-
   const [error, setError] = useState<string | undefined>(undefined);
   const [data, setData] = useState<TOutput | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,10 +36,6 @@ export const useAction = <TInput, TOutput>(
 
         setFieldErrors(result.fieldErrors);
 
-        if (result.fieldErrors) {
-          setFieldErrors(result.fieldErrors);
-        }
-
         if (result.error) {
           setError(result.error);
           options.onError?.(result.error);
@@ -54,7 +47,7 @@ export const useAction = <TInput, TOutput>(
         }
       } finally {
         setIsLoading(false);
-        options.onCompleted?.();
+        options.onComplete?.();
       }
     },
     [action, options]

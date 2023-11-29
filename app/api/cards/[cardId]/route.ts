@@ -34,6 +34,6 @@ export async function GET(
 
     return NextResponse.json(card);
   } catch (error) {
-    return new NextResponse("Internal", { status: 500 });
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

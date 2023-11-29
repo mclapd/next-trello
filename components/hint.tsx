@@ -4,7 +4,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import exp from "constants";
 
 interface HintProps {
   children: React.ReactNode;
@@ -16,16 +15,16 @@ interface HintProps {
 export const Hint = ({
   children,
   description,
-  side,
-  sideOffset,
+  side = "bottom",
+  sideOffset = 0,
 }: HintProps) => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0}>
         <TooltipTrigger>{children}</TooltipTrigger>
         <TooltipContent
-          side={side}
           sideOffset={sideOffset}
+          side={side}
           className="text-xs max-w-[220px] break-words"
         >
           {description}
