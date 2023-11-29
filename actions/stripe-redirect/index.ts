@@ -52,7 +52,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
             price_data: {
               currency: "AUD",
               product_data: {
-                name: "Taskify Pro",
+                name: "BAN Todo Pro",
                 description: "Unlimited boards for your organization",
               },
               unit_amount: 100,
