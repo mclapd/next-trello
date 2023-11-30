@@ -20,15 +20,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const canCreate = await hasAvailableCount();
-  const isPro = await checkSubscription();
+  // const canCreate = await hasAvailableCount();
+  // const isPro = await checkSubscription();
 
-  if (!canCreate && !isPro) {
-    return {
-      error:
-        "You have reached your limit of free boards. Please upgrade to create more.",
-    };
-  }
+  // if (!canCreate && !isPro) {
+  //   return {
+  //     error:
+  //       "You have reached your limit of free boards. Please upgrade to create more.",
+  //   };
+  // }
 
   const { title, image } = data;
 
@@ -62,9 +62,10 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
-    if (!isPro) {
-      await incrementAvailableCount();
-    }
+    // if (!isPro) {
+    //   await incrementAvailableCount();
+    // }
+
     await createAuditLog({
       entityTitle: board.title,
       entityId: board.id,
