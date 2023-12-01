@@ -15,6 +15,7 @@ import {
   Bot,
 } from "lucide-react";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const links = [
   {
@@ -70,5 +71,16 @@ export const UsefulLink = () => {
         ))}
       </AccordionContent>
     </AccordionItem>
+  );
+};
+
+UsefulLink.Skeleton = function SkeletonUsefulLink() {
+  return (
+    <div className="flex items-center gap-x-2">
+      <div className="w-10 h-10 relative shrink-0">
+        <Skeleton className="h-full w-full absolute" />
+      </div>
+      <Skeleton className="h-10 w-full" />
+    </div>
   );
 };
