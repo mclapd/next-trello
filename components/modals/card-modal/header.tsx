@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import { useAction } from "@/hooks/use-action";
 import { updateCard } from "@/actions/update-card";
 import { toast } from "sonner";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface HeaderProps {
   data: CardWithList;
@@ -18,6 +19,8 @@ interface HeaderProps {
 export const Header = ({ data }: HeaderProps) => {
   const queryClient = useQueryClient();
   const params = useParams();
+  const [completed, setCompleted] = useState(data.completed);
+  let isCompletedChanged = false;
 
   const { execute } = useAction(updateCard, {
     onSuccess: (data) => {
@@ -29,7 +32,11 @@ export const Header = ({ data }: HeaderProps) => {
         queryKey: ["card-logs", data.id],
       });
 
-      toast.success(`Renamed to "${data.title}"`);
+      if (isCompletedChanged) {
+        toast.success(`Updated to "${data.title}"`);
+      } else {
+        toast.success(`Renamed to "${data.title}"`);
+      }
       setTitle(data.title);
     },
     onError: (error) => {
@@ -57,6 +64,19 @@ export const Header = ({ data }: HeaderProps) => {
       title,
       boardId,
       id: data.id,
+      completed,
+    });
+  };
+
+  const handleCheckboxChange = () => {
+    const boardId = params.boardId as string;
+    setCompleted(!completed);
+    isCompletedChanged = true;
+    execute({
+      title,
+      boardId,
+      id: data.id,
+      completed: !completed,
     });
   };
 
@@ -64,15 +84,36 @@ export const Header = ({ data }: HeaderProps) => {
     <div className="flex items-start gap-x-3 mb-6 w-full">
       <Layout className="h-5 w-5 mt-1 text-neutral-700" />
       <div className="w-full">
-        <form action={onSubmit}>
-          <FormInput
-            ref={inputRef}
-            onBlur={onBlur}
-            id="title"
-            defaultValue={title}
-            className="font-semibold text-xl px-1 text-neutral-700 bg-transparent border-transparent relative -left-1.5 w-[95%] focus-visible:bg-white focus-visible:border-input mb-0.5 truncate"
-          />
-        </form>
+        <div className="flex">
+          <div className="flex-grow">
+            <form action={onSubmit}>
+              <FormInput
+                ref={inputRef}
+                onBlur={onBlur}
+                id="title"
+                defaultValue={title}
+                className={`flex-growfont-semibold text-xl px-1 text-neutral-700 bg-transparent border-transparent relative -left-1.5 w-[95%] focus-visible:bg-white focus-visible:border-input mb-0.5 truncate ${
+                  completed ? " line-through" : ""
+                }`}
+              />
+            </form>
+          </div>
+          <div className="flex-shrink mr-10">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                checked={completed}
+                onCheckedChange={handleCheckboxChange}
+                id="terms"
+              />
+              <label
+                htmlFor="terms"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Completed
+              </label>
+            </div>
+          </div>
+        </div>
         <p className="text-sm text-muted-foreground">
           in list <span className="underline">{data.list.title}</span>
         </p>

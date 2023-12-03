@@ -71,6 +71,7 @@ export const Description = ({ data }: DescriptionProps) => {
       id: data.id,
       description,
       boardId,
+      completed: data.completed,
     });
   };
 
