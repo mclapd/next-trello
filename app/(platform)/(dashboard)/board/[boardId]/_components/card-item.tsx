@@ -23,7 +23,9 @@ export const CardItem = ({ data, index }: CardItemProps) => {
           role="button"
           onClick={() => cardModal.onOpen(data.id)}
           className={`truncate border-2 border-transparent hover:border-black py-2 px-3 text-sm bg-white rounded-md shadow-sm ${
-            data.completed ? "flex bg-green-400/20 line-through" : "font-medium"
+            data.completed
+              ? "flex bg-black/60 text-white/70 line-through"
+              : "font-medium"
           }`}
         >
           {data.title}
