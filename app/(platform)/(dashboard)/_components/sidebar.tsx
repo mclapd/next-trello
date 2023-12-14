@@ -9,8 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Accordion } from "@/components/ui/accordion";
 
-import { NavItem, Organization } from "./nav-item";
+import { TodoItem, Organization } from "./todo-item";
 import { UsefulLink } from "./useful-links";
+import { NoteItem } from "./note-item";
 
 interface SidebarProps {
   storageKey?: string;
@@ -56,9 +57,9 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
           <Skeleton className="h-10 w-10" />
         </div>
         <div className="space-y-2 mb-10">
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
+          <TodoItem.Skeleton />
+          <TodoItem.Skeleton />
+          <TodoItem.Skeleton />
         </div>
         <div className="space-y-2 mb-10">
           <UsefulLink.Skeleton />
@@ -91,7 +92,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
         className="space-y-2"
       >
         {userMemberships.data.map(({ organization }) => (
-          <NavItem
+          <TodoItem
             key={organization.id}
             isActive={activeOrganization?.id === organization.id}
             isExpanded={expanded[organization.id]}
@@ -100,11 +101,24 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
           />
         ))}
       </Accordion>
-      <div className="pt-10">
-        <Accordion type="single" collapsible className="w-full">
-          <UsefulLink />
-        </Accordion>
-      </div>
+      <Accordion
+        type="multiple"
+        defaultValue={defaultAccordionValue}
+        className="space-y-2"
+      >
+        {userMemberships.data.map(({ organization }) => (
+          <NoteItem
+            key={organization.id}
+            isActive={activeOrganization?.id === organization.id}
+            isExpanded={expanded[organization.id]}
+            organization={organization as Organization}
+            onExpand={onExpand}
+          />
+        ))}
+      </Accordion>
+      <Accordion type="single" collapsible className="w-full">
+        <UsefulLink />
+      </Accordion>
     </>
   );
 };

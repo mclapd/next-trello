@@ -48,10 +48,10 @@ const links = [
 export const UsefulLink = () => {
   return (
     <AccordionItem value="item-1" className="border-none">
-      <AccordionTrigger className="flex items-center gap-x-2 p-1.5 text-neutral-700 rounded-md bg-yellow-400/30 hover:bg-neutral-500/10 transition text-start no-underline hover:no-underline">
+      <AccordionTrigger className="flex items-center gap-x-2 p-1.5 text-neutral-700 rounded-md hover:bg-neutral-500/10 transition text-start no-underline hover:no-underline">
         <div className="flex items-center gap-x-2">
-          <div className="w-7 h-7 relativer">
-            <Image src="/link.svg" alt="link" width={28} height={28} />
+          <div className="w-5 h-5 relativer">
+            <Image src="/link.svg" alt="link" width={24} height={24} />
           </div>
           <span className="font-medium text-sm">Useful Links</span>
         </div>

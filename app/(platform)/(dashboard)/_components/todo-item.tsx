@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { ListTodo, StickyNote, Activity, Settings } from "lucide-react";
+import { ListTodo, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -19,19 +19,19 @@ export type Organization = {
   name: string;
 };
 
-interface NavItemProps {
+interface TodoItemProps {
   isExpanded: boolean;
   isActive: boolean;
   organization: Organization;
   onExpand: (id: string) => void;
 }
 
-export const NavItem = ({
+export const TodoItem = ({
   isExpanded,
   isActive,
   organization,
   onExpand,
-}: NavItemProps) => {
+}: TodoItemProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const routes = [
@@ -41,25 +41,10 @@ export const NavItem = ({
       href: `/organization/${organization.id}`,
     },
     {
-      label: "Note Boards",
-      icon: <StickyNote className="h-4 w-4 mr-2" />,
-      href: `/organization/${organization.id}/notes`,
-    },
-    {
-      label: "Activity",
+      label: "Todo Activity",
       icon: <Activity className="h-4 w-4 mr-2" />,
       href: `/organization/${organization.id}/activity`,
     },
-    {
-      label: "Settings",
-      icon: <Settings className="h-4 w-4 mr-2" />,
-      href: `/organization/${organization.id}/settings`,
-    },
-    // {
-    //   label: "Billing",
-    //   icon: <CreditCard className="h-4 w-4 mr-2" />,
-    //   href: `/organization/${organization.id}/billing`,
-    // },
   ];
 
   const onClick = (href: string) => {
@@ -68,23 +53,17 @@ export const NavItem = ({
 
   return (
     <AccordionItem value={organization.id} className="border-none">
-      <AccordionTrigger
-        onClick={() => onExpand(organization.id)}
-        className={cn(
-          "flex items-center gap-x-2 p-1.5 text-neutral-700 rounded-md hover:bg-neutral-500/10 transition text-start no-underline hover:no-underline",
-          isActive && !isExpanded && "bg-sky-500/10 text-sky-700"
-        )}
-      >
+      <AccordionTrigger className="flex items-center gap-x-2 p-1.5 text-neutral-700 rounded-md hover:bg-neutral-500/10 transition text-start no-underline hover:no-underline">
         <div className="flex items-center gap-x-2">
-          <div className="w-7 h-7 relative">
+          <div className="w-5 h-5 relativer">
             <Image
-              fill
-              src={organization.imageUrl}
-              alt="Organization"
-              className="rounded-sm object-cover"
+              src="/checklist.svg"
+              alt="checklist"
+              width={24}
+              height={24}
             />
           </div>
-          <span className="font-medium text-sm">{organization.name}</span>
+          <span className="font-medium text-sm">Todo</span>
         </div>
       </AccordionTrigger>
       <AccordionContent className="pt-1 text-neutral-700">
@@ -108,7 +87,7 @@ export const NavItem = ({
   );
 };
 
-NavItem.Skeleton = function SkeletonNavItem() {
+TodoItem.Skeleton = function SkeletonTodoItem() {
   return (
     <div className="flex items-center gap-x-2">
       <div className="w-10 h-10 relative shrink-0">
