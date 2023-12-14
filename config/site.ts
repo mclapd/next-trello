@@ -1,4 +1,4 @@
 export const siteConfig = {
-  name: "BAN Todo",
+  name: "BAN WorkNote",
   description: "Collaborate, manage projects, and reach new productivity peaks",
 };

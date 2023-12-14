@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { Activity, Layout, Settings } from "lucide-react";
+import { ListTodo, StickyNote, Activity, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -36,9 +36,14 @@ export const NavItem = ({
   const pathname = usePathname();
   const routes = [
     {
-      label: "Boards",
-      icon: <Layout className="h-4 w-4 mr-2" />,
+      label: "Todo Boards",
+      icon: <ListTodo className="h-4 w-4 mr-2" />,
       href: `/organization/${organization.id}`,
+    },
+    {
+      label: "Note Boards",
+      icon: <StickyNote className="h-4 w-4 mr-2" />,
+      href: `/organization/${organization.id}/notes`,
     },
     {
       label: "Activity",

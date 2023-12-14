@@ -1,6 +1,6 @@
 import { FormPopover } from "@/components/form/form-popover";
 import { Hint } from "@/components/hint";
-import { HelpCircle, ListTodo } from "lucide-react";
+import { HelpCircle, StickyNote } from "lucide-react";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { checkSubscription } from "@/lib/subscription";
 import { getAvailableCount } from "@/lib/org-limit";
 
-export const BoardList = async () => {
+export const NoteBoardList = async () => {
   const { orgId } = auth();
 
   if (!orgId) {
@@ -31,8 +31,8 @@ export const BoardList = async () => {
   return (
     <div className="space-y-4">
       <div className="flex items-center font-semibold text-lg text-neutral-700">
-        <ListTodo className="h-6 w-6 mr-2" />
-        Your Todo Boards
+        <StickyNote className="h-6 w-6 mr-2" />
+        Your Note Boards
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {boards.map((board) => (
@@ -51,7 +51,7 @@ export const BoardList = async () => {
             role="button"
             className="aspect-video relative h-full w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
           >
-            <p className="text-sm">Create new todo board</p>
+            <p className="text-sm">Create new note board</p>
             {/* <span className="text-xs">
               {isPro
                 ? "Unlimited"
@@ -72,7 +72,7 @@ export const BoardList = async () => {
   );
 };
 
-BoardList.Skeleton = function SkeletonBoardList() {
+NoteBoardList.Skeleton = function SkeletonNoteBoardList() {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
       <Skeleton className="aspect-video h-full w-full p-2" />
