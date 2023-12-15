@@ -14,20 +14,19 @@ import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 // import UserItem from "./user-item";
-// import { useMutation } from "convex/react";
-// import { api } from "@/convex/_generated/api";
-// import Item from "./item";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import Item from "./item";
 import { toast } from "sonner";
-// import { DocumentList } from "./document-list";
+import { DocumentList } from "./document-list";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
-// import TrashBox from "./trash-box";
+import TrashBox from "./trash-box";
 import { useSettings } from "@/hooks/use-settings";
 import { useSearch } from "@/hooks/use-search";
-import Item from "./item";
 // import Navbar from "./navbar";
 
 const Navigation = () => {
@@ -37,7 +36,7 @@ const Navigation = () => {
   const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  // const create = useMutation(api.documents.create);
+  const create = useMutation(api.documents.create);
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -127,14 +126,17 @@ const Navigation = () => {
   };
 
   const handleCreate = () => {
-    // const promise = create({ title: "Untitled" }).then((documentId) =>
-    //   router.push(`/documents/${documentId}`)
-    // );
-    // toast.promise(promise, {
-    //   loading: "Creating a new note...",
-    //   success: "New note created!",
-    //   error: "Failed to create a new note.",
-    // });
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(
+        `/organization/org_2ZVqFSybhqnCdQeoeGPhbWp1b2b/documents/${documentId}`
+      )
+    );
+
+    toast.promise(promise, {
+      loading: "Creating a new note...",
+      success: "New note created!",
+      error: "Failed to create a new note.",
+    });
   };
 
   return (
@@ -142,12 +144,12 @@ const Navigation = () => {
       <aside
         ref={sidebarRef}
         className={cn(
-          "group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]",
+          "group/sidebar h-full border-r overflow-y-auto relative flex w-60 flex-col z-[99999]",
           isResetting && "transition-all ease-in-out duration-300",
           isMobile && "w-0"
         )}
       >
-        <div
+        {/* <div
           onClick={collapse}
           role="button"
           className={cn(
@@ -156,15 +158,15 @@ const Navigation = () => {
           )}
         >
           <ChevronsLeft className="h-6 w-6" />
-        </div>
+        </div> */}
         <div>
-          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
-          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
-          <Item onClick={() => {}} label="New page" icon={PlusCircle} />
+          {/* <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} /> */}
+          {/* <Item onClick={handleCreate} label="New page" icon={PlusCircle} /> */}
         </div>
         <div className="mt-4">
-          {/* <DocumentList /> */}
-          <Item onClick={() => {}} icon={Plus} label="Add a page" />
+          <DocumentList />
+          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
           <Popover>
             <PopoverTrigger className="w-full mt-4">
               <Item label="Trash" icon={Trash} />
@@ -173,7 +175,7 @@ const Navigation = () => {
               className="p-0 w-72"
               side={isMobile ? "bottom" : "right"}
             >
-              {/* <TrashBox /> */}
+              <TrashBox />
             </PopoverContent>
           </Popover>
         </div>

@@ -38,7 +38,7 @@ export const NoteItem = ({
     {
       label: "Note Boards",
       icon: <StickyNote className="h-4 w-4 mr-2" />,
-      href: `/organization/${organization.id}/notes`,
+      href: `/organization/${organization.id}/documents`,
     },
     {
       label: "Note Activity",

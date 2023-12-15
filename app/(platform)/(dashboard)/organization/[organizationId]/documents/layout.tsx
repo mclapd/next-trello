@@ -2,8 +2,6 @@ import Navigation from "./_components/navigation";
 import { Info } from "../_components/info";
 import { Separator } from "@/components/ui/separator";
 import { checkSubscription } from "@/lib/subscription";
-import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
 
 const NoteLayout = async ({ children }: { children: React.ReactNode }) => {
   const isPro = await checkSubscription();
