@@ -128,7 +128,7 @@ const Navigation = () => {
   const handleCreate = () => {
     const promise = create({ title: "Untitled" }).then((documentId) =>
       router.push(
-        `/organization/org_2ZVqFSybhqnCdQeoeGPhbWp1b2b/documents/${documentId}`
+        `/organization/${params.organizationId}/documents/${documentId}`
       )
     );
 

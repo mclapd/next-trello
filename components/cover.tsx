@@ -37,15 +37,29 @@ const Cover = ({ url, preview }: CoverImageProps) => {
     });
   };
 
+  console.log(url);
+
   return (
     <div
       className={cn(
         "relative w-full h-[35vh] group",
-        !url && "h-[12vh]",
+        !url && "h-[12vh] bg-gradient-to-r from-fuchsia-600 to-pink-600",
         url && "bg-muted"
       )}
     >
-      {!!url && <Image src={url} fill alt="Cover" className="object-cover" />}
+      {!!url ? (
+        <Image src={url} fill alt="Cover" className="object-cover" />
+      ) : (
+        // <Image
+        //   src={
+        //     "https://files.edgestore.dev/awdmxwqzsltesbmp/publicFiles/_public/794d9a94-b69e-4669-88f0-b1fff7d56be9.png"
+        //   }
+        //   fill
+        //   alt="Cover"
+        //   className="object-cover"
+        // />
+        <></>
+      )}
       {url && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">
           <Button
