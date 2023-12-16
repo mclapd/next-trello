@@ -26,7 +26,7 @@ const NoteLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="w-full mb-20">
       <Info isPro={true} />
       <Separator className="my-4" />
-      <div className="h-full flex dark:bg-[#1F1F1F]">
+      <div className="h-full flex">
         <Navigation />
         <main className="flex-1 h-full overflow-y-auto">{children}</main>
       </div>
