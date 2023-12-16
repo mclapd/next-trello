@@ -22,7 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useUser } from "@clerk/clerk-react";
+import { useUser, useOrganization } from "@clerk/clerk-react";
 
 interface ItemProps {
   id?: Id<"documents">;
@@ -50,6 +50,7 @@ const Item = ({
   icon: Icon,
 }: ItemProps) => {
   const { user } = useUser();
+  const { organization } = useOrganization();
   const router = useRouter();
   const create = useMutation(api.documents.create);
   const archive = useMutation(api.documents.archive);
@@ -58,7 +59,7 @@ const Item = ({
     event.stopPropagation();
     if (!id) return;
     const promise = archive({ id }).then(() =>
-      router.push("/organization/org_2ZVqFSybhqnCdQeoeGPhbWp1b2b/documents")
+      router.push(`/organization/${organization?.id}/documents`)
     );
     toast.promise(promise, {
       loading: "Moving to trash...",
@@ -82,9 +83,7 @@ const Item = ({
         if (!expanded) {
           onExpand?.();
         }
-        router.push(
-          `organization/org_2ZVqFSybhqnCdQeoeGPhbWp1b2b/documents/${documentId}`
-        );
+        router.push(`organization/${organization?.id}/documents/${documentId}`);
       }
     );
     toast.promise(promise, {
@@ -132,7 +131,7 @@ const Item = ({
             <DropdownMenuTrigger onClick={(e) => e.stopPropagation()} asChild>
               <div
                 role="button"
-                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300"
               >
                 <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
               </div>
@@ -156,7 +155,7 @@ const Item = ({
           <div
             role="button"
             onClick={onCreate}
-            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300"
           >
             <Plus className="h-4 w-4 text-muted-foreground" />
           </div>

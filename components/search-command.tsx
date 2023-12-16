@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { File } from "lucide-react";
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/clerk-react";
+import { useUser, useOrganization } from "@clerk/clerk-react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -18,6 +18,7 @@ import { api } from "@/convex/_generated/api";
 
 export const SearchCommand = () => {
   const { user } = useUser();
+  const { organization } = useOrganization();
   const router = useRouter();
   const documents = useQuery(api.documents.getSearch);
   const [isMounted, setIsMounted] = useState(false);
@@ -45,9 +46,7 @@ export const SearchCommand = () => {
   }, [toggle]);
 
   const onSelect = (id: string) => {
-    router.push(
-      `/organization/org_2ZVqFSybhqnCdQeoeGPhbWp1b2b/documents/${id}`
-    );
+    router.push(`/organization/${organization?.id}/documents/${id}`);
     onClose();
   };
 

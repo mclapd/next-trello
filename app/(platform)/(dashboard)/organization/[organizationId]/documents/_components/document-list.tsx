@@ -36,7 +36,7 @@ export const DocumentList = ({
 
   const onRedirect = (documentId: string) => {
     router.push(
-      `/organization/org_2ZVqFSybhqnCdQeoeGPhbWp1b2b/documents/${documentId}`
+      `/organization/${params.organizationId}/documents/${documentId}`
     );
   };
 

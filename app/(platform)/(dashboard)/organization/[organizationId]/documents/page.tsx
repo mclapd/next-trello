@@ -1,7 +1,7 @@
 "use client";
 
+import { useOrganization } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
-import { useUser } from "@clerk/clerk-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { PlusCircle } from "lucide-react";
@@ -11,14 +11,12 @@ import { useRouter } from "next/navigation";
 
 const NotesPage = () => {
   const router = useRouter();
-  const { user } = useUser();
+  const { organization } = useOrganization();
   const create = useMutation(api.documents.create);
 
   const onCreate = () => {
     const promise = create({ title: "Untitled" }).then((documentId) =>
-      router.push(
-        `/organization/org_2ZVqFSybhqnCdQeoeGPhbWp1b2b/documents/${documentId}`
-      )
+      router.push(`/organization/${organization?.id}/documents/${documentId}`)
     );
 
     toast.promise(promise, {
