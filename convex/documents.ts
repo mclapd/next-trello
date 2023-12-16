@@ -5,13 +5,14 @@ import { Doc, Id } from "./_generated/dataModel";
 export const archive = mutation({
   args: { id: v.id("documents") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Not authenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const existingDocument = await ctx.db.get(args.id);
 
@@ -55,13 +56,14 @@ export const getSidebar = query({
     parentDocument: v.optional(v.id("documents")),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Not authenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const documents = await ctx.db
       .query("documents")
@@ -82,13 +84,14 @@ export const create = mutation({
     parentDocument: v.optional(v.id("documents")),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Not authenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const document = await ctx.db.insert("documents", {
       title: args.title,
@@ -104,13 +107,14 @@ export const create = mutation({
 
 export const getTrash = query({
   handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Not authenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const documents = await ctx.db
       .query("documents")
@@ -126,13 +130,14 @@ export const getTrash = query({
 export const restore = mutation({
   args: { id: v.id("documents") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Not authenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const existingDocument = await ctx.db.get(args.id);
 
@@ -183,13 +188,14 @@ export const restore = mutation({
 export const remove = mutation({
   args: { id: v.id("documents") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Not authenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const existingDocument = await ctx.db.get(args.id);
 
@@ -209,13 +215,14 @@ export const remove = mutation({
 
 export const getSearch = query({
   handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Not authenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const documents = await ctx.db
       .query("documents")
@@ -231,7 +238,7 @@ export const getSearch = query({
 export const getById = query({
   args: { documentId: v.id("documents") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
     const document = await ctx.db.get(args.documentId);
 
@@ -243,11 +250,12 @@ export const getById = query({
       return document;
     }
 
-    if (!identity) {
-      throw new Error("Not authenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Not authenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     if (document.userId !== userId) {
       throw new Error("Unauthorized");
@@ -267,13 +275,14 @@ export const update = mutation({
     isPublished: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Unauthenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Unauthenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const { id, ...rest } = args;
 
@@ -298,13 +307,14 @@ export const update = mutation({
 export const removeIcon = mutation({
   args: { id: v.id("documents") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Unauthenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Unauthenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const existingDocument = await ctx.db.get(args.id);
 
@@ -327,13 +337,14 @@ export const removeIcon = mutation({
 export const removeCoverImage = mutation({
   args: { id: v.id("documents") },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity();
+    // const identity = await ctx.auth.getUserIdentity();
 
-    if (!identity) {
-      throw new Error("Unauthenticated");
-    }
+    // if (!identity) {
+    //   throw new Error("Unauthenticated");
+    // }
 
-    const userId = identity.subject;
+    // const userId = identity.subject;
+    const userId = "user_2ZVpzeWQTNTvyeJxwhRAMCumMJN";
 
     const existingDocument = await ctx.db.get(args.id);
 
