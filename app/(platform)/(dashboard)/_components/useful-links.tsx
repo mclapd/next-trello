@@ -13,6 +13,7 @@ import {
   BookOpenText,
   Bug,
   Bot,
+  Slack,
 } from "lucide-react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -37,6 +38,11 @@ const links = [
     label: "JIRA",
     icon: <Bug className="w-5 h-5 ml-4 mr-4" />,
     href: "https://banlaw.atlassian.net/jira/your-work",
+  },
+  {
+    label: "Slack (RTL)",
+    icon: <Slack className="w-5 h-5 ml-4 mr-4" />,
+    href: "https://banlawworkspace.slack.com/",
   },
   {
     label: "Chat GPT",
