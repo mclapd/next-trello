@@ -1,8 +1,20 @@
 "use client";
 
 // import { useTheme } from "next-themes";
-import { BlockNoteEditor, PartialBlock } from "@blocknote/core";
-import { BlockNoteView, useBlockNote } from "@blocknote/react";
+import { Block, BlockNoteEditor, PartialBlock } from "@blocknote/core";
+import {
+  BlockNoteView,
+  DefaultSideMenu,
+  DragHandleMenu,
+  DragHandleMenuItem,
+  FormattingToolbarPositioner,
+  HyperlinkToolbarPositioner,
+  RemoveBlockButton,
+  BlockColorsButton,
+  SideMenuPositioner,
+  SlashMenuPositioner,
+  useBlockNote,
+} from "@blocknote/react";
 import "@blocknote/core/style.css";
 
 import { useEdgeStore } from "@/lib/edgestore";
@@ -36,9 +48,34 @@ const Editor = ({ onChange, initialContent, editable }: EditorProps) => {
     uploadFile: handleUpload,
   });
 
+  const CustomDragHandleMenu = (props: {
+    editor: BlockNoteEditor;
+    block: Block;
+  }) => {
+    return (
+      <DragHandleMenu>
+        <RemoveBlockButton {...props}>Delete</RemoveBlockButton>
+        <BlockColorsButton {...props}>Colors</BlockColorsButton>
+        {/* <DragHandleMenuItem onClick={() => window.alert("Button Pressed!")}>
+          Open Alert
+        </DragHandleMenuItem> */}
+      </DragHandleMenu>
+    );
+  };
+
   return (
     <div>
-      <BlockNoteView editor={editor} theme={"light"} />
+      <BlockNoteView editor={editor} theme={"light"}>
+        <FormattingToolbarPositioner editor={editor} />
+        <HyperlinkToolbarPositioner editor={editor} />
+        <SlashMenuPositioner editor={editor} />
+        <SideMenuPositioner
+          editor={editor}
+          sideMenu={(props) => (
+            <DefaultSideMenu {...props} dragHandleMenu={CustomDragHandleMenu} />
+          )}
+        />
+      </BlockNoteView>
     </div>
   );
 };
