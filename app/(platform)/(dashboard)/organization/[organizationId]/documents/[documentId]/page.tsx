@@ -70,7 +70,9 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
       <Cover url={document.coverImage} />
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
         <Toolbar initialData={document} />
-        <div className="py-5 ml-14 text-sm font-semibold">{formattedDate}</div>
+        <div className="py-5 ml-14 text-neutral-700/50 text-sm font-semibold">
+          {formattedDate}
+        </div>
         <Editor onChange={onChange} initialContent={document.content} />
       </div>
     </div>
