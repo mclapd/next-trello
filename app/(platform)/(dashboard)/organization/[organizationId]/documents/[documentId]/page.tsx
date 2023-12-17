@@ -55,11 +55,22 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
     return <div>Not found</div>;
   }
 
+  const formattedDate = new Intl.DateTimeFormat("en-AU", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZone: "Australia/Sydney",
+  }).format(new Date(document._creationTime));
+
   return (
     <div className="pb-40">
       <Cover url={document.coverImage} />
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
         <Toolbar initialData={document} />
+        <div className="py-5 ml-14 text-sm font-semibold">{formattedDate}</div>
         <Editor onChange={onChange} initialContent={document.content} />
       </div>
     </div>
