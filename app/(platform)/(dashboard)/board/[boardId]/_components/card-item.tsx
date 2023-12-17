@@ -24,7 +24,7 @@ export const CardItem = ({ data, index }: CardItemProps) => {
           onClick={() => cardModal.onOpen(data.id)}
           className={`truncate border-2 border-transparent py-2 px-3 justify-between text-sm  rounded-md shadow-sm ${
             data.completed
-              ? "flex bg-red-500/40 text-white/70 line-through hover:border-white"
+              ? "flex bg-neutral-700/75 text-white/70 line-through hover:border-white"
               : "font-medium bg-white hover:border-black"
           }`}
         >
